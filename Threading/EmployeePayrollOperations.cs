@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace Threading
@@ -51,8 +52,11 @@ namespace Threading
         {
             employeePayrollDataList.ForEach(employeeData =>
             {
+                Stopwatch Time = new Stopwatch();
+                Time.Start();
                 Console.WriteLine(" Employee being added: " + employeeData.EmployeeName);
                 this.addEmployeePayroll(employeeData);
+                Time.Stop();
                 Console.WriteLine(" Employee added: " + employeeData.EmployeeName);
             });
 
@@ -76,8 +80,12 @@ namespace Threading
             {
                 Task thread = new Task(() =>
                 {
+                    Stopwatch Time = new Stopwatch();
+                    Time.Start();
+
                     Console.WriteLine(" Employee being added: " + employeeData.EmployeeName);
                     this.addEmployeePayroll(employeeData);
+                    Time.Stop();
                     Console.WriteLine(" Employee added: " + employeeData.EmployeeName);
                 });
                 thread.Start();
